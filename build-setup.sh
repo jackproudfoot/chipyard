@@ -88,7 +88,15 @@ fi
 $RDIR/scripts/init-submodules-no-riscv-tools.sh $FORCE_FLAG
 
 if [ "$SKIP_TOOLCHAIN" = false ]; then
-    $RDIR/scripts/build-toolchain-extra.sh $FORCE_FLAG $TOOLCHAIN
+    if [ "$SKIP_CONDA" = false ]; then
+        PREFIX=$CONDA_PREFIX/$TOOLCHAIN
+    else
+        if [ -z "$RISCV" ] ; then
+            error "ERROR: If --skip-conda used, \$RISCV variable must be defined."
+        fi
+        PREFIX=$RISCV
+    fi
+    $RDIR/scripts/build-toolchain-extra.sh $TOOLCHAIN -p $PREFIX
 fi
 
 $RDIR/scripts/gen-tags.sh
