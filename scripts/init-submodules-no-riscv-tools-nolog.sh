@@ -62,28 +62,28 @@ set +e
 git_tag=$(git describe --exact-match --tags)
 git_tag_rc=$?
 restore_bash_options
-if [ "$git_tag_rc" -ne 0 ]; then
-    if [ "$FORCE" == false ]; then
-        while true; do
-            read -p "WARNING: You are not on an official release of Chipyard."$'\n'"Type \"y\" to continue if this is intended or \"n\" if not: " validate
-            case "$validate" in
-                y | Y)
-                    echo "Continuing on to setting up non-official Chipyard release repository"
-                    break
-                    ;;
-                n | N)
-                    error "See https://chipyard.readthedocs.io/en/stable/Chipyard-Basics/Initial-Repo-Setup.html#setting-up-the-chipyard-repo for setting up an official release of Chipyard. "
-                    exit 3
-                    ;;
-                *)
-                    error "Invalid response. Please type \"y\" or \"n\""
-                    ;;
-            esac
-        done
-    fi
-else
-    echo "Setting up official Chipyard release: $git_tag"
-fi
+# if [ "$git_tag_rc" -ne 0 ]; then
+#     if [ "$FORCE" == false ]; then
+#         while true; do
+#             read -p "WARNING: You are not on an official release of Chipyard."$'\n'"Type \"y\" to continue if this is intended or \"n\" if not: " validate
+#             case "$validate" in
+#                 y | Y)
+#                     echo "Continuing on to setting up non-official Chipyard release repository"
+#                     break
+#                     ;;
+#                 n | N)
+#                     error "See https://chipyard.readthedocs.io/en/stable/Chipyard-Basics/Initial-Repo-Setup.html#setting-up-the-chipyard-repo for setting up an official release of Chipyard. "
+#                     exit 3
+#                     ;;
+#                 *)
+#                     error "Invalid response. Please type \"y\" or \"n\""
+#                     ;;
+#             esac
+#         done
+#     fi
+# else
+#     echo "Setting up official Chipyard release: $git_tag"
+# fi
 
 cd "$RDIR"
 
